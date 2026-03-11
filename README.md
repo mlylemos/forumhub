@@ -9,309 +9,359 @@
   <img src="https://img.shields.io/badge/Status-Concluído-success?style=for-the-badge" />
 </p>
 
-> **Alura Challenge Back End** — Réplica do back-end do fórum da Alura usando Spring Boot 3, JPA, Flyway, Spring Security e JWT.
+> **Alura Challenge Back-End** — Implementação de uma API REST inspirada no fórum da Alura utilizando Spring Boot 3, Spring Security, JWT, JPA, Flyway e MySQL.
 
 ---
 
-## 📋 Índice
+# 📋 Índice
 
-1. [Sobre o Projeto](#-sobre-o-projeto)
-2. [Funcionalidades](#-funcionalidades)
-3. [Tecnologias](#-tecnologias)
-4. [Arquitetura](#-arquitetura)
-5. [Diagrama do Banco de Dados](#-diagrama-do-banco-de-dados)
-6. [Pré-requisitos](#-pré-requisitos)
-7. [Instalação e Configuração](#-instalação-e-configuração)
-8. [Variáveis de Ambiente](#-variáveis-de-ambiente)
-9. [Endpoints da API](#-endpoints-da-api)
-10. [Autenticação JWT](#-autenticação-jwt)
-11. [Testes](#-testes)
-12. [Documentação Swagger](#-documentação-swagger)
-
----
-
-## 📖 Sobre o Projeto
-
-O **FórumHub** é uma API REST que replica o comportamento do fórum da Alura, permitindo que alunos criem tópicos de dúvidas associados a cursos, respondam uns aos outros e gerenciem o ciclo de vida das discussões.
-
-O projeto implementa as quatro operações fundamentais de CRUD com regras de negócio, autenticação stateless via JWT e documentação interativa via Swagger UI.
+1. Sobre o Projeto  
+2. Funcionalidades  
+3. Tecnologias  
+4. Arquitetura  
+5. Diagrama do Banco de Dados  
+6. Regras de Negócio  
+7. Pré-requisitos  
+8. Instalação e Configuração  
+9. Variáveis de Ambiente  
+10. Endpoints da API  
+11. Autenticação JWT  
+12. Testes  
+13. Documentação Swagger  
 
 ---
 
-## ✅ Funcionalidades
+# 📖 Sobre o Projeto
 
-- **Autenticação**
-  - Login com e-mail e senha → retorno de token JWT Bearer
-- **Usuários**
-  - Cadastro, visualização, atualização (self) e exclusão (soft-delete)
-- **Tópicos** *(CRUD completo)*
-  - Criar tópico associado ao usuário autenticado
-  - Listar todos (paginado, ordenado por data ASC)
-  - Filtrar por nome do curso e/ou ano de criação
-  - Detalhar um tópico pelo ID
-  - Atualizar título, mensagem, curso e status
-  - Excluir (soft-delete)
-  - Validação de duplicidade (mesmo título + mensagem)
-- **Respostas**
-  - Criar resposta em um tópico
-  - Listar respostas de um tópico
-  - Atualizar e excluir resposta (apenas o autor)
-  - Marcar resposta como solução
-- **Segurança**
-  - Apenas usuários autenticados acessam as rotas protegidas
-  - Rotas públicas: `POST /login` e `POST /usuarios`
-- **Documentação**
-  - Swagger UI disponível em `/swagger-ui.html`
+O **FórumHub** é uma API REST que replica o funcionamento do fórum da Alura, permitindo que usuários autenticados criem tópicos de discussão relacionados a cursos, respondam perguntas e gerenciem o ciclo de vida das conversas.
+
+O projeto foi desenvolvido como parte do **Challenge Back-End da Alura + Oracle Next Education (ONE)**.
+
+A aplicação implementa as operações de **CRUD (Create, Read, Update, Delete)** para tópicos, usuários e respostas, utilizando boas práticas de desenvolvimento com **Spring Boot**, **arquitetura em camadas**, **validação de dados**, **controle de acesso** e **autenticação via JWT**.
 
 ---
 
-## 🛠️ Tecnologias
+# ✅ Funcionalidades
 
-| Camada            | Tecnologia                           |
-|-------------------|--------------------------------------|
-| Linguagem         | Java 17                              |
-| Framework         | Spring Boot 3.3                      |
-| Segurança         | Spring Security + JWT (Auth0)        |
-| Persistência      | Spring Data JPA + Hibernate          |
-| Banco de Dados    | MySQL 8                              |
-| Migrations        | Flyway                               |
-| Validação         | Jakarta Bean Validation              |
-| Build             | Maven 4                              |
-| Documentação      | SpringDoc OpenAPI (Swagger UI)       |
-| Testes            | JUnit 5 + Mockito                    |
-| Utilitários       | Lombok                               |
+### 🔐 Autenticação
+
+- Login com **email e senha**
+- Retorno de **token JWT**
+- Autenticação **stateless**
 
 ---
 
-## 🏗️ Arquitetura
+### 👤 Usuários
+
+- Cadastro de usuário
+- Visualização de perfil
+- Atualização do próprio perfil
+- Exclusão lógica (**soft delete**)
+
+---
+
+### 💬 Tópicos
+
+- Criar tópico associado ao usuário autenticado
+- Listar tópicos com **paginação**
+- Ordenação por **data de criação**
+- Filtrar por **curso** e **ano**
+- Visualizar detalhes de um tópico
+- Atualizar título, mensagem, curso ou status
+- Exclusão lógica (**soft delete**)
+- Validação para evitar **tópicos duplicados**
+
+---
+
+### 💡 Respostas
+
+- Criar resposta em um tópico
+- Listar respostas de um tópico
+- Atualizar resposta
+- Excluir resposta
+- Marcar resposta como **solução**
+
+---
+
+### 🔒 Segurança
+
+- Apenas usuários **autenticados** podem acessar rotas protegidas
+
+Rotas públicas:
+
+POST /login  
+POST /usuarios  
+
+---
+
+### 📚 Documentação
+
+Documentação automática com **Swagger UI** disponível em:
+
+/swagger-ui.html
+
+---
+
+# 🛠️ Tecnologias
+
+| Camada | Tecnologia |
+|------|------|
+| Linguagem | Java 17 |
+| Framework | Spring Boot 3 |
+| Segurança | Spring Security |
+| Autenticação | JWT (Auth0) |
+| Persistência | Spring Data JPA + Hibernate |
+| Banco de dados | MySQL 8 |
+| Migrations | Flyway |
+| Validação | Jakarta Bean Validation |
+| Build | Maven |
+| Documentação | SpringDoc OpenAPI |
+| Testes | JUnit 5 + Mockito |
+| Utilitários | Lombok |
+
+---
+
+# 🏗️ Arquitetura
+
+O projeto segue uma **arquitetura em camadas**, separando responsabilidades:
+
+Controller  
+↓  
+Service  
+↓  
+Repository  
+↓  
+Banco de Dados  
+
+Estrutura do projeto:
 
 ```
 forumhub/
-├── config/          # SecurityConfigurations, OpenApiConfig
-├── controller/      # AuthController, TopicoController, UsuarioController, RespostaController
-├── dto/             # Records (CadastrarTopico, DadosAutenticacao, DadosTokenJWT, ...)
-├── entity/          # Usuario, Topico, Resposta, StatusTopico
-├── exception/       # Exceções customizadas + GlobalExceptionHandler
-├── filter/          # SecurityFilter (validação JWT por requisição)
-├── repository/      # Interfaces JpaRepository com queries customizadas
-└── service/         # TopicoService, UsuarioService, RespostaService, TokenService
+├── config/
+├── controller/
+├── dto/
+├── entity/
+├── exception/
+├── filter/
+├── repository/
+└── service/
 ```
 
-O padrão adotado é **Controller → Service → Repository**, mantendo responsabilidades bem separadas e facilitando testes unitários por camada.
+Essa organização melhora a **manutenção**, **testabilidade** e **separação de responsabilidades**.
 
 ---
 
-## 🗄️ Diagrama do Banco de Dados
+# 🗄️ Diagrama do Banco de Dados
 
-```
-┌────────────────────────┐        ┌──────────────────────────────┐
-│       usuarios         │        │           topicos             │
-├────────────────────────┤        ├──────────────────────────────┤
-│ id          BIGINT  PK │◄───┐   │ id          BIGINT  PK       │
-│ nome        VARCHAR    │    │   │ titulo      VARCHAR(200)      │
-│ email       VARCHAR UQ │    │   │ mensagem    TEXT              │
-│ senha       VARCHAR    │    └───┤ autor_id    BIGINT  FK        │
-│ ativo       BOOLEAN    │        │ curso       VARCHAR(150)      │
-│ criado_em   DATETIME   │        │ status      ENUM              │
-└────────────────────────┘        │ criado_em   DATETIME          │
-                                  │ ativo       BOOLEAN           │
-                                  └──────────────────────────────┘
-                                            │ 1
-                                            │
-                                            ▼ N
-                                  ┌──────────────────────────────┐
-                                  │          respostas           │
-                                  ├──────────────────────────────┤
-                                  │ id          BIGINT  PK       │
-                                  │ mensagem    TEXT              │
-                                  │ topico_id   BIGINT  FK       │
-                                  │ autor_id    BIGINT  FK       │
-                                  │ solucao     BOOLEAN          │
-                                  │ criado_em   DATETIME         │
-                                  │ ativo       BOOLEAN          │
-                                  └──────────────────────────────┘
-```
+usuarios  
+│  
+└───< topicos  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└───< respostas  
+
+Relações principais:
+
+- Um **usuário** pode criar vários **tópicos**
+- Um **tópico** pode ter várias **respostas**
+- Cada **resposta** pertence a um **tópico** e a um **usuário**
 
 ---
 
-## 📦 Pré-requisitos
+# 📏 Regras de Negócio
 
-- [Java JDK 17+](https://www.oracle.com/java/technologies/downloads/)
-- [Maven 4+](https://maven.apache.org/download.cgi)
-- [MySQL 8+](https://dev.mysql.com/downloads/installer/)
-- [IntelliJ IDEA](https://www.jetbrains.com/idea/download/) *(recomendado)*
-- [Insomnia](https://insomnia.rest/) ou [Postman](https://www.postman.com/) para testes
+- Todos os campos obrigatórios devem ser informados
+- Não é permitido criar **tópicos duplicados** (mesmo título e mensagem)
+- Apenas **usuários autenticados** podem criar, editar ou excluir tópicos
+- O sistema valida a existência do recurso antes de atualizar ou excluir
+- Exclusões utilizam **soft delete**
 
 ---
 
-## 🚀 Instalação e Configuração
+# 📦 Pré-requisitos
 
-### 1. Clone o repositório
+- Java **17+**
+- Maven
+- MySQL **8+**
+- IntelliJ IDEA (recomendado)
+- Postman ou Insomnia para testes
 
-```bash
+---
+
+# 🚀 Instalação e Configuração
+
+### 1️⃣ Clonar o repositório
+
+```
 git clone https://github.com/seu-usuario/forumhub.git
 cd forumhub
 ```
 
-### 2. Crie o banco de dados no MySQL
+---
 
-```sql
-CREATE DATABASE forumhub CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+### 2️⃣ Criar o banco de dados
+
+```
+CREATE DATABASE forumhub;
 ```
 
-> O Flyway irá criar as tabelas automaticamente ao iniciar a aplicação.
+O **Flyway** criará as tabelas automaticamente ao iniciar a aplicação.
 
-### 3. Configure as variáveis de ambiente
+---
 
-Crie um arquivo `.env` ou exporte as variáveis no terminal (veja a seção abaixo).
+### 3️⃣ Executar o projeto
 
-### 4. Execute a aplicação
-
-```bash
+```
 ./mvnw spring-boot:run
 ```
 
-A API estará disponível em `http://localhost:8080`.
+A aplicação estará disponível em:
+
+```
+http://localhost:8080
+```
 
 ---
 
-## 🔑 Variáveis de Ambiente
+# 🔑 Variáveis de Ambiente
 
-| Variável         | Descrição                          | Padrão (dev)                          |
-|------------------|------------------------------------|---------------------------------------|
-| `DB_USERNAME`    | Usuário do MySQL                   | `root`                                |
-| `DB_PASSWORD`    | Senha do MySQL                     | `root`                                |
-| `JWT_SECRET`     | Segredo para assinar os tokens JWT | `minha-chave-secreta-forumhub-2024`   |
-| `JWT_EXPIRATION` | Validade do token em ms            | `86400000` (24 h)                     |
+| Variável | Descrição |
+|------|------|
+DB_USERNAME | Usuário do banco |
+DB_PASSWORD | Senha do banco |
+JWT_SECRET | Chave secreta para gerar tokens |
+JWT_EXPIRATION | Tempo de expiração do token |
 
-> ⚠️ **Em produção**, sempre substitua o `JWT_SECRET` por uma string longa e aleatória.
+Exemplo:
 
----
-
-## 📡 Endpoints da API
-
-### 🔓 Públicos
-
-| Método | URI        | Descrição                       |
-|--------|------------|---------------------------------|
-| POST   | `/login`   | Autenticar e obter token JWT    |
-| POST   | `/usuarios`| Cadastrar novo usuário          |
-
-### 🔒 Autenticados (requer `Authorization: Bearer <token>`)
-
-#### Tópicos
-
-| Método | URI              | Descrição                                        |
-|--------|------------------|--------------------------------------------------|
-| POST   | `/topicos`       | Criar novo tópico                                |
-| GET    | `/topicos`       | Listar tópicos (paginado; query: `curso`, `ano`) |
-| GET    | `/topicos/{id}`  | Detalhar tópico                                  |
-| PUT    | `/topicos/{id}`  | Atualizar tópico                                 |
-| DELETE | `/topicos/{id}`  | Excluir tópico (soft-delete)                     |
-
-#### Respostas
-
-| Método | URI                                   | Descrição                    |
-|--------|---------------------------------------|------------------------------|
-| POST   | `/topicos/{topicoId}/respostas`       | Responder tópico             |
-| GET    | `/topicos/{topicoId}/respostas`       | Listar respostas do tópico   |
-| PUT    | `/topicos/{topicoId}/respostas/{id}`  | Atualizar resposta           |
-| DELETE | `/topicos/{topicoId}/respostas/{id}`  | Excluir resposta             |
-
-#### Usuários
-
-| Método | URI             | Descrição                    |
-|--------|-----------------|------------------------------|
-| GET    | `/usuarios/{id}`| Detalhar usuário             |
-| PUT    | `/usuarios/{id}`| Atualizar próprio perfil     |
-| DELETE | `/usuarios/{id}`| Excluir própria conta        |
+```
+JWT_SECRET=minha-chave-super-secreta
+JWT_EXPIRATION=86400000
+```
 
 ---
 
-## 🔐 Autenticação JWT
+# 📡 Endpoints da API
 
-### 1. Fazer login
+## 🔓 Públicos
 
-```http
+POST /login  
+POST /usuarios  
+
+---
+
+## 🔒 Autenticados
+
+### Tópicos
+
+POST /topicos  
+GET /topicos  
+GET /topicos/{id}  
+PUT /topicos/{id}  
+DELETE /topicos/{id}  
+
+---
+
+### Respostas
+
+POST /topicos/{id}/respostas  
+GET /topicos/{id}/respostas  
+PUT /topicos/{id}/respostas/{respostaId}  
+DELETE /topicos/{id}/respostas/{respostaId}  
+
+---
+
+### Usuários
+
+GET /usuarios/{id}  
+PUT /usuarios/{id}  
+DELETE /usuarios/{id}  
+
+---
+
+# 🔐 Autenticação JWT
+
+### Login
+
+```
 POST /login
-Content-Type: application/json
+```
 
+Body:
+
+```json
 {
   "email": "admin@forumhub.com",
   "senha": "123456"
 }
 ```
 
-**Resposta:**
+Resposta:
+
 ```json
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "tipo": "Bearer",
-  "expiracaoEm": 86400000
-}
-```
-
-### 2. Usar o token nas requisições
-
-```http
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-```
-
-### 3. Exemplo — criar tópico
-
-```http
-POST /topicos
-Authorization: Bearer <token>
-Content-Type: application/json
-
-{
-  "titulo": "Dúvida sobre Spring Security",
-  "mensagem": "Como configurar o filtro JWT corretamente no Spring Boot 3?",
-  "curso": "Spring Boot 3"
+  "token": "JWT_TOKEN",
+  "tipo": "Bearer"
 }
 ```
 
 ---
 
-## 🧪 Testes
+### Usar token nas requisições
 
-```bash
+Header:
+
+```
+Authorization: Bearer SEU_TOKEN
+```
+
+---
+
+# 🧪 Testes
+
+Executar testes:
+
+```
 ./mvnw test
 ```
 
-Os testes unitários cobrem o `TopicoService` com cenários de:
+Os testes cobrem:
 
-- Cadastro bem-sucedido
-- Rejeição de tópico duplicado (`DuplicateTopicException`)
-- Busca por ID inexistente (`ResourceNotFoundException`)
-- Soft-delete
-- Atualização parcial de campos
+- Cadastro de tópico
+- Validação de duplicidade
+- Busca por ID
+- Atualização
+- Exclusão lógica
 
 ---
 
-## 📚 Documentação Swagger
+# 📚 Documentação Swagger
 
-Com a aplicação em execução, acesse:
+Com a aplicação rodando:
 
 ```
 http://localhost:8080/swagger-ui.html
 ```
 
-A interface permite visualizar e testar todos os endpoints diretamente no navegador. Para rotas protegidas, clique em **Authorize** e informe o token JWT no formato `Bearer <token>`.
+A interface permite **testar os endpoints diretamente pelo navegador**.
 
 ---
 
-## 👤 Usuário padrão (seed)
+# 👤 Usuário padrão
 
-A migration `V1` insere um usuário administrador para testes imediatos:
+Criado automaticamente pela migration:
 
-| Campo | Valor                  |
-|-------|------------------------|
-| Email | `admin@forumhub.com`   |
-| Senha | `123456`               |
+| Email | Senha |
+|------|------|
+admin@forumhub.com | 123456 |
 
 ---
 
-## 📝 Licença
+# 👩‍💻 Autora
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Projeto desenvolvido por **Emily Lemos**.
+
+---
+
+# 📝 Licença
+
+Este projeto está sob a licença **MIT**.
